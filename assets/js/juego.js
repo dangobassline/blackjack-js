@@ -80,6 +80,20 @@ const miModulo = (() => {
         divCartasJugadores[turno].append(imgCarta);
     }
 
+    //Turno de la computadora;
+    const turnoComputadora = (puntosMinimos) => {
+
+        let puntosComputadora = 0;
+        do {
+            const carta = pedirCarta();
+            puntosComputadora = acumularPuntos(carta, puntosJugadores.length - 1);
+            crearCarta(carta, puntosJugadores.length - 1);
+        } while ((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
+
+        determinarGanador();
+    }
+
+
     //Esta función evalúa quien es el ganador comparando puntaje;
     const determinarGanador = () => {
 
@@ -87,35 +101,32 @@ const miModulo = (() => {
 
         setTimeout(() => {
             if (puntosComputadora === puntosMinimos) {
-                alert('Empate');
+                Swal.fire(
+                    'Hey!',
+                    '¡Ámbos han empatado!',
+                    'warning'
+                )
             } else if (puntosMinimos > 21) {
-                alert('Gana la computadora');
+                Swal.fire(
+                    '¡Opss!',
+                    'Te ha vencido la computadora',
+                    'error'
+                )
             } else if (puntosComputadora > 21) {
-                alert('Jugador gana');
+                Swal.fire(
+                    '¡Bien Hecho!',
+                    '¡Haz vencido a la computadora!',
+                    'success'
+                )
             } else {
-                alert('Gana la computadora');
+                Swal.fire(
+                    '¡Opss!',
+                    'Te ha vencido la computadora',
+                    'error'
+                )
             }
         }, 100);
     }
-
-    //Turno de la computadora;
-    const turnoComputadora = ( puntosMinimos ) => {
-
-        let puntosComputadora = 0;
-        do{
-            const carta = pedirCarta();
-            puntosComputadora = acumularPuntos(carta,puntosJugadores.length - 1);
-            crearCarta(carta, puntosJugadores.length - 1);
-        } while( (puntosComputadora < puntosMinimos) && (puntosMinimos <= 21) );
-
-        determinarGanador();
-    }
-
-
-    //Eventos de botones
-    // btnNuevoJuego.addEventListener('click', () => {
-    //     inicializarJuego();
-    // });
 
     btnPedir.addEventListener('click', () => {
 
